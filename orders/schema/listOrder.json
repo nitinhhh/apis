@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "limit": {
+      "type": [ "integer", "string" ],
+      "pattern": "^\\d+$"
+    },
+    "page": {
+      "type": [ "integer", "string" ],
+      "pattern": "^\\d+$"
+    }
+  },
+  "required": ["limit", "page"]
+}

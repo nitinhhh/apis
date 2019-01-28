@@ -1,0 +1,86 @@
+swagger: '2.0'
+info:
+  description: Transport API
+  version: 1.0.0
+  title: Transport API
+  contact:
+    email: gagan.shera@gmail.com
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+host: 'localhost:8080'
+basePath: '/'
+tags:
+  - name: Orders
+    description: Order related functionality
+schemes:
+  - http
+paths:
+  '/orders':
+    post:
+      tags:
+        - orders
+      summary: Create a new order
+      description: Create a new order
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: JSON object
+          required: true
+          schema:
+            $ref: '#/definitions/Orders'
+      responses:
+        '405':
+          description: Invalid input
+  '/order/:id':
+    patch:
+      tags:
+        - orders
+      summary: Updates an order's status
+      description: Updates an order's status
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+          format: BSON id
+          description: The id of an order
+        - in: body
+          name: body
+          description: JSON object
+          required: true
+          schema:
+            $ref: '#/definitions/OrderUpdate'
+      responses:
+        '405':
+          description: Invalid input
+definitions:
+  Orders:
+    type: object
+    required:
+      - origin
+      - destination
+    properties:
+      origin:
+        type: array
+        items:
+          $ref: '#/definitions/ObjectSchemaDefinition'
+      destination:
+        type: array
+        items:
+          $ref: '#/definitions/ObjectSchemaDefinition'
+  OrderUpdate:
+    type: object
+    properties:
+      status:
+        type: string
+        description: Order status
+        enum:
+          - TAKEN
+          - UNASSIGN
+  ObjectSchemaDefinition:
+    type: string
